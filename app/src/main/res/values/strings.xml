@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project Asisten</string>
+    <string name="app_version_label">Project Asisten v0.1.0 (Project Lens)</string>
+    <string name="assistant_service_label">CircleToSearch (Project Asisten)</string>
+    <string name="accessibility_service_label">Project Asisten Shortcut</string>
+    <string name="qs_tile_label">CircleToSearch</string>
+
+    <string name="accessibility_service_description">
+        Menyediakan tombol pintasan (Accessibility Shortcut) untuk menangkap gambar layar saat ini secara manual guna fitur Scan Gambar, Pilih Teks (OCR), dan Terjemahkan Layar.\n\nTransparansi Privasi:\n• Layanan ini TIDAK membaca layar secara terus-menerus di latar belakang (accessibilityEventTypes kosong).\n• Layanan ini TIDAK mengakses hierarki input teks, password, PIN, atau OTP (canRetrieveWindowContent=false).\n• Tangkapan layar hanya diambil ketika Anda menekan pintasan secara manual, menghormati proteksi FLAG_SECURE aplikasi perbankan, dan langsung dihapus dari memori setelah ditutup.
+    </string>
+
+    <!-- Popup Bottom Panel -->
+    <string name="action_scan">Scan</string>
+    <string name="action_translate">Terjemahkan</string>
+    <string name="action_select_text">Pilih Teks</string>
+    <string name="action_search_lens">Cari dengan Google Lens</string>
+    <string name="action_share_fallback">Bagikan Gambar (Sharesheet)</string>
+    <string name="action_copy_text">Copy</string>
+    <string name="action_select_all">Select All</string>
+    <string name="action_copy_translation">Salin Terjemahan</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_recapture">Ambil Ulang Layar</string>
+    <string name="action_toggle_overlay_mode">Overlay Koordinat</string>
+
+    <!-- Status & Guidance Messages -->
+    <string name="status_ready_subtitle">Pilih fitur untuk memproses konten layar yang sedang tampil</string>
+    <string name="status_crop_hint">Seret kotak seleksi pada layar, lalu pilih Cari dengan Google Lens atau Pilih Teks</string>
+    <string name="status_ocr_running">Mendeteksi teks pada layar (OCR lokal)…</string>
+    <string name="status_ocr_select_hint">Ketuk kata/baris pada layar untuk memilih, atau gunakan Select All</string>
+    <string name="status_translating">Menerjemahkan teks pada layar…</string>
+    <string name="status_flag_secure_blocked">Tangkapan layar ditolak oleh sistem (FLAG_SECURE). Layar aplikasi ini dilindungi dari tangkapan layar demi keamanan (misalnya aplikasi perbankan, pembayaran, atau konten DRM).</string>
+    <string name="status_capture_denied">Izin tangkapan layar dibatalkan oleh pengguna.</string>
+    <string name="status_no_text_found">Tidak ditemukan teks yang dapat dibaca pada area layar ini.</string>
+    <string name="status_copied_clipboard">Teks berhasil disalin ke clipboard</string>
+    <string name="status_lens_unavailable_fallback">Google Lens tidak ditemukan atau tidak mendukung pengiriman gambar langsung di perangkat ini. Membuka Android Sharesheet sebagai alternatif resmi.</string>
+
+    <!-- Model Download Consent Dialog -->
+    <string name="dialog_model_download_title">Unduh Model Bahasa Offline?</string>
+    <string name="dialog_model_download_message">Untuk menerjemahkan dari %1$s ke %2$s secara lokal di perangkat (tanpa mengirim teks ke server pribadi), Google ML Kit perlu mengunduh paket model bahasa berukuran sekitar ~30 MB.\n\nLanjutkan pengunduhan?</string>
+    <string name="dialog_download_confirm">Unduh (~30 MB)</string>
+    <string name="dialog_cancel">Batal</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Pengaturan Project Asisten</string>
+    <string name="settings_subtitle">Asisten pencarian gambar, OCR, dan penerjemah layar yang ringan &amp; aman</string>
+    <string name="settings_section_activation">Metode Aktivasi &amp; Pintasan</string>
+    <string name="settings_enable_shortcut_switch">Aktifkan Pintasan Asisten</string>
+    <string name="settings_enable_shortcut_desc">Matikan sakelar ini untuk menonaktifkan sementara pemicu asisten saat Anda sedang tidak menggunakannya (misalnya saat membuka aplikasi perbankan).</string>
+    <string name="settings_method_a_title">Metode A — Default Digital Assistant (Direkomendasikan)</string>
+    <string name="settings_method_a_desc">Pilih Project Asisten (CircleToSearch) sebagai aplikasi asisten default sistem. Mendukung gesture sudut bawah layar atau tombol daya jika didukung ROM perangkat.</string>
+    <string name="settings_method_a_btn">Atur Asisten Default</string>
+    <string name="settings_method_b_title">Metode B — Accessibility Shortcut</string>
+    <string name="settings_method_b_desc">Aktifkan tombol pintasan Aksesibilitas untuk menangkap layar pada Android 11+ tanpa dialog berulang. Tidak membaca layar di latar belakang.</string>
+    <string name="settings_method_b_btn">Buka Pengaturan Aksesibilitas</string>
+    <string name="settings_method_c_title">Metode C — Quick Settings Tile</string>
+    <string name="settings_method_c_desc">Tambahkan tombol "CircleToSearch" di panel Quick Settings bagian atas layar untuk akses cepat kapan saja.</string>
+    <string name="settings_method_c_btn">Coba Buka Popup Sekarang</string>
+
+    <string name="settings_section_preferences">Preferensi Terjemahan &amp; Tampilan</string>
+    <string name="settings_default_target_lang">Bahasa Terjemahan Default</string>
+    <string name="settings_theme_mode">Tema Tampilan</string>
+    <string name="theme_system">Mengikuti Sistem</string>
+    <string name="theme_light">Mode Terang</string>
+    <string name="theme_dark">Mode Gelap</string>
+
+    <string name="settings_section_storage_privacy">Penyimpanan, Izin &amp; Privasi</string>
+    <string name="settings_clear_cache_btn">Hapus Cache &amp; Gambar Sementara</string>
+    <string name="settings_cache_cleared_toast">Cache gambar sementara berhasil dibersihkan</string>
+    <string name="settings_permissions_info_title">Informasi Izin Aplikasi &amp; Keamanan Perbankan</string>
+    <string name="settings_permissions_info_body">
+        • Tanpa Izin Kamera: Aplikasi hanya memproses konten yang sedang tampil di layar.\n• Tanpa SYSTEM_ALERT_WINDOW: Aplikasi TIDAK meminta izin "Tampilkan di atas aplikasi lain" agar tidak memicu blokir keamanan pada aplikasi perbankan &amp; dompet digital.\n• Tanpa Pemantauan Layar Latar Belakang: Layanan Aksesibilitas disetel dengan accessibilityEventTypes kosong dan canRetrieveWindowContent=false, sehingga mustahil membaca PIN, password, atau OTP.\n• Menghormati FLAG_SECURE: Layar yang dilindungi sistem Android tidak akan pernah ditangkap atau diakali.\n• Pemrosesan Lokal: Screenshot disimpan hanya di RAM/cache sementara selama sesi aktif dan langsung dihapus saat popup ditutup.
+    </string>
+    <string name="settings_about_title">Tentang Aplikasi</string>
+    <string name="settings_about_body">
+        Project Asisten (Project Lens)\nVersi: 0.1.0 (Minimum SDK: Android 10 / API 29)\nArsitektur: Native Kotlin + Material Design 3 + Google ML Kit On-Device\nCatatan Kompatibilitas: Dirancang sesuai kebijakan resmi Android untuk meminimalkan konflik dengan aplikasi finansial (kebijakan tiap bank tetap dapat berbeda).
+    </string>
+</resources>

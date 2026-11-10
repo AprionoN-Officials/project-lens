@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<voice-interaction-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sessionService="id.projectasisten.lens.service.AssistantSessionService"
+    android:recognitionService="id.projectasisten.lens.service.AssistantInteractionService"
+    android:settingsActivity="id.projectasisten.lens.ui.settings.MainActivity"
+    android:supportsAssist="true"
+    android:supportsLaunchVoiceAssistFromKeyguard="false" />

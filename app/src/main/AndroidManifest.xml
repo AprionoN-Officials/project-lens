@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      Minimal permissions required:
+      1. FOREGROUND_SERVICE + FOREGROUND_SERVICE_MEDIA_PROJECTION:
+         Required by Android 10-15 ONLY during the <1 second single-frame MediaProjection capture fallback.
+      2. INTERNET:
+         Used solely by Google ML Kit to download on-device translation language models (~30 MB) after explicit user consent.
+         No screenshots or OCR text are ever uploaded to any server.
+      NOTE: SYSTEM_ALERT_WINDOW, CAMERA, and QUERY_ALL_PACKAGES are intentionally NOT requested
+      to guarantee privacy and maximum compatibility with banking/financial applications.
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Explicit Package Visibility queries (Android 11+) instead of broad QUERY_ALL_PACKAGES -->
+    <queries>
+        <package android:name="com.google.ar.lens" />
+        <package android:name="com.google.android.googlequicksearchbox" />
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="image/png" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".ProjectLensApp"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ProjectLens"
+        tools:targetApi="34">
+
+        <!-- Settings & Onboarding Activity -->
+        <activity
+            android:name=".ui.settings.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          Floating Bottom Panel & Screenshot Workspace Activity.
+          Uses a translucent Material 3 theme instead of SYSTEM_ALERT_WINDOW overlay
+          so banking apps never flag the app for drawing over other apps.
+        -->
+        <activity
+            android:name=".ui.overlay.AssistantOverlayActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+            android:theme="@style/Theme.ProjectLens.TranslucentOverlay">
+            <intent-filter>
+                <action android:name="android.intent.action.ASSIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Method A: Default Digital Assistant (VoiceInteractionService + SessionService) -->
+        <service
+            android:name=".service.AssistantInteractionService"
+            android:exported="true"
+            android:label="@string/assistant_service_label"
+            android:permission="android.permission.BIND_VOICE_INTERACTION">
+            <meta-data
+                android:name="android.voice_interaction"
+                android:resource="@xml/voice_interaction_service" />
+            <intent-filter>
+                <action android:name="android.service.voice.VoiceInteractionService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".service.AssistantSessionService"
+            android:exported="false"
+            android:permission="android.permission.BIND_VOICE_INTERACTION" />
+
+        <!--
+          Method B: Accessibility Shortcut (On-Demand Only).
+          Configured with accessibilityEventTypes="" and canRetrieveWindowContent="false"
+          so it NEVER monitors screen text, inputs, PINs, or passwords.
+        -->
+        <service
+            android:name=".service.LensAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- Method C: Quick Settings Tile (CircleToSearch / Project Asisten) -->
+        <service
+            android:name=".service.LensTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_qs_tile"
+            android:label="@string/qs_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- Short-lived One-Shot MediaProjection Service (stops immediately after 1 frame) -->
+        <service
+            android:name=".service.MediaProjectionCaptureService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <!-- FileProvider for sharing cropped image to Google Lens / Android Sharesheet -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

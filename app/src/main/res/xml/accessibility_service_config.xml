@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Privacy & Banking Compatibility Design:
+  - accessibilityEventTypes="" -> Receives ZERO background window/input/text events.
+  - canRetrieveWindowContent="false" -> Cannot inspect view hierarchy, PINs, OTPs, or passwords.
+  - canPerformGestures="false" -> Cannot inject automated clicks or gestures.
+  - flagRequestAccessibilityButton -> Activated ONLY when user taps the Accessibility button/shortcut.
+  - canTakeScreenshot="true" -> Used solely for on-demand screenshot when triggered by user (API 30+),
+    and automatically respects FLAG_SECURE.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes=""
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagRequestAccessibilityButton"
+    android:canPerformGestures="false"
+    android:canRetrieveWindowContent="false"
+    android:canTakeScreenshot="true"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="0"
+    android:settingsActivity="id.projectasisten.lens.ui.settings.MainActivity" />
